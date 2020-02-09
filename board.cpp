@@ -1,5 +1,6 @@
 #include "board.h"
 #include "cpputil.h"
+#include "movegen.h"
 
 void recalc_board(BOARD& b)
 {
@@ -248,7 +249,7 @@ bool validate_board(BOARD& b)
     // illegal pawn position
     if ((b.piece_bit[WHITE][PAWN] | b.piece_bit[BLACK][PAWN]) & wrong_pawn_pos) return false;
     // opponent king attacked
-        // TODO: Add validating for OpponentKingAttacked !!!
+    if (is_opponent_king_attacked(b)) return false;
     // Updating AllowCastling
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
