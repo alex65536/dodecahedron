@@ -1,8 +1,6 @@
 # dodecahedron
 
-<div style="text-align:center">
-<img src="dodecahedron.png" />
-</div>
+![dodecahedron logo](dodecahedron.png)
 
 Dodecahedron is a simple UCI chess engine. It uses bitboards to implement game rules. It is simple, so it doesn't include sophisticated heuristics or complex position cost functions.
 
