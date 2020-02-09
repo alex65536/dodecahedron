@@ -1,4 +1,4 @@
-﻿const char* logo = (
+const char* logo = (
 	"                                                                  \n"
 	"                                    ▒▒▒▒▒                         \n"
 	"                           ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓                       \n"
