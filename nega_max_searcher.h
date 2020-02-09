@@ -20,7 +20,7 @@
                                 chains, sizes, \
                                 nodes, \
                                 timer, analysis_time, \
-                                must_stop); \
+                                stop_required); \
         /* Update score */ \
         if (tmp > result) \
         {  \

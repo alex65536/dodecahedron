@@ -3,7 +3,7 @@
 #include "uci_output.h"
 #include <thread>
 
-bool must_stop;
+std::atomic<bool> stop_required(false);
 std::thread cur_thread;
 
 void run_analysis(BOARD brd, MOVE* moves, int move_cnt, HASHTABLE& hsh, int64_t analysis_time)
@@ -13,14 +13,14 @@ void run_analysis(BOARD brd, MOVE* moves, int move_cnt, HASHTABLE& hsh, int64_t 
         uci_out("Analysis is already running!");
         return;
     }
-    must_stop = false;
-    cur_thread = std::thread(launch_analysis, brd, moves, move_cnt, std::ref(hsh), analysis_time, &must_stop);
+    stop_required.store(false);
+    cur_thread = std::thread(launch_analysis, brd, moves, move_cnt, std::ref(hsh), analysis_time, &stop_required);
     cur_thread.detach();
 }
 
 void stop_analysis()
 {
     if (!is_analysing()) return;
-    must_stop = true;
+    stop_required.store(true);
     while (is_analysing());
 }

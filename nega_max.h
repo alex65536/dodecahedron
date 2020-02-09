@@ -11,7 +11,7 @@ POS_COST nega_max
      MOVE_CHAINS chains, CHAIN_SIZES sizes,
      int64_t& nodes,
      TIMER timer, int64_t analysis_time,
-     bool* must_stop)
+     std::atomic_bool* stop_required)
 {
     // Some init stuff ...
     POS_COST was_alpha = alpha, was_beta = beta;
@@ -53,7 +53,7 @@ POS_COST nega_max
                  was_capture, null_move, true,
                  chains, sizes,
                  nodes,
-                 timer, analysis_time, must_stop);
+                 timer, analysis_time, stop_required);
     }
     // Cut using hash value
     if (hel)

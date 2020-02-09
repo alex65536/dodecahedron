@@ -8,6 +8,7 @@
 #include "hashtable.h"
 #include "search_hash.h"
 #include "killer_heuristic.h"
+#include <atomic>
 
 // We are in search.cpp
 #define IT_IS_SEARCH_CPP
@@ -20,15 +21,15 @@ typedef MOVE* MOVE_CHAIN;
 typedef MOVE_CHAIN* MOVE_CHAINS;
 typedef int* CHAIN_SIZES;
 
-#define must_exit (*must_stop || get_timer_time(timer) > analysis_time)
+#define must_exit (stop_required->load() || get_timer_time(timer) > analysis_time)
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 #define max(a, b) (((a) > (b)) ? (a) : (b))
 
-bool analysing = false;
+std::atomic_bool analysing(false);
 
 bool is_analysing()
 {
-    return analysing;
+    return analysing.load();
 }
 
 inline MOVE_CHAINS alloc_chains()
@@ -50,7 +51,7 @@ inline void unalloc_chains(MOVE_CHAINS ch)
 #include "static_analysis.h"
 #include "nega_max.h"
 
-void launch_analysis(BOARD b, MOVE* m, int move_cnt, HASHTABLE& htab, int64_t analysis_time, bool* must_stop)
+void launch_analysis(BOARD b, MOVE* m, int move_cnt, HASHTABLE& htab, int64_t analysis_time, std::atomic_bool* stop_required)
 {
     analysing = true;
     clear_table();
@@ -69,7 +70,7 @@ void launch_analysis(BOARD b, MOVE* m, int move_cnt, HASHTABLE& htab, int64_t an
     }
     POS_COST dyn_cost = dynamic_calc_init(b);
     // Iterative deepening algorithm
-    bool always_false = false; // for must_stop in depth = 1
+    std::atomic_bool always_false(false); // for stop_required in depth = 1
     int64_t nodes = 0;
     for (int i = 1; i <= MAX_DEPTH; i++)
     {
@@ -81,7 +82,7 @@ void launch_analysis(BOARD b, MOVE* m, int move_cnt, HASHTABLE& htab, int64_t an
                                 ch, sz,
                                 nodes,
                                 timer, analysis_time,
-                                (i == 1) ? &always_false : must_stop);
+                                (i == 1) ? &always_false : stop_required);
         if (must_exit) break;
         best_move = ch[i][0];
         uci_out_info(i, tmp, ch[i], sz[i], get_timer_time(timer), nodes);
