@@ -1,0 +1,16 @@
+0.0.1.2 (09.02.2020)
+[*] Now enpassant moves are not ignored by the engine.
+
+0.0.1.1 (18.09.2016)
+[*] Added a hash table.
+[*] Added killer heuristic.
+[*] Added MVV/LVA
+[*] Added futility pruning and razoring.
+[*] Added history heuristic.
+
+0.0.1 (05.09.2016)
+[*] Now the engine can play chess.
+[*] Added base UCI protocol features.
+
+0.0.0 (09.08.2016)
+[*] Dodecahedron project has started.
