@@ -1,11 +1,9 @@
 #ifndef ABOUT_H_INCLUDED
 #define ABOUT_H_INCLUDED
 
-#include "version.h"
-
 #ifdef NO_USE_EXTERN
     const char* app_name = "Dodecahedron";
-    const char* app_version = FULLVERSION_STRING STATUS_SHORT;
+    const char* app_version = "0.0.1.2-pre-alpha";
     const char* app_author = "Kernozhitsky Alexander (alex256)";
 #else
     extern const char* app_name;
