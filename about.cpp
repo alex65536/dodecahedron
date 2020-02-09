@@ -1,7 +1,4 @@
-#define NO_USE_EXTERN
-    #include "about.h"
-#undef NO_USE_EXTERN
-
+#include "about.h"
 #include "cpputil.h"
 #include "uci_output.h"
 
@@ -10,6 +7,10 @@
 #else
     #include "logo_utf8.h"
 #endif // __WIN32
+
+const char* app_name = "Dodecahedron";
+const char* app_version = "0.0.1.2-pre-alpha";
+const char* app_author = "Kernozhitsky Alexander (alex256)";
 
 bool init()
 {

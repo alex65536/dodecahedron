@@ -26,15 +26,7 @@ struct SEARCH_HASH_ENTRY
 
 const int BASE_HASH_SIZE = 256;
 
-#ifdef SHASH_NO_USE_EXTERN
-    #define extern
-#endif
-
 extern SEARCH_HASH_ENTRY *table;
-
-#ifdef SHASH_NO_USE_EXTERN
-    #undef extern
-#endif
 
 SEARCH_HASH_ENTRY* extract_hash(ZOBRIST);
 void add_hash(ZOBRIST, MOVE, POS_COST, ANALYSIS_MODE, int);

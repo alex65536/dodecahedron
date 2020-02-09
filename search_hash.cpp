@@ -1,9 +1,8 @@
-#define SHASH_NO_USE_EXTERN
-    #include "search_hash.h"
-#undef SHASH_NO_USE_EXTERN
-
+#include "search_hash.h"
 #include <string.h>
 #include <stdlib.h>
+
+SEARCH_HASH_ENTRY *table;
 
 int hash_pow = 0;
 int hash_cnt = 1;
