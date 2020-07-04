@@ -20,7 +20,7 @@ void move_to_str(const MOVE& m, char* str)
 {
     cell_to_str(m.src, str); str += 2;
     cell_to_str(m.dst, str); str += 2;
-    switch (m.promote)
+    switch (get_kind(m.promote))
     {
         case PAWN:   *(str++) = 'p'; break;
         case KNIGHT: *(str++) = 'n'; break;
